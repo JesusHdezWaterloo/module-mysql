@@ -1,4 +1,4 @@
-package com.jhw.company.core.module;
+package com.jhw.mysql.core.module;
 
 import com.clean.core.app.modules.AbstractModule;
 import com.clean.core.app.modules.DefaultAbstractModule;
@@ -10,21 +10,21 @@ import com.google.inject.Injector;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class CompanyCoreModule extends DefaultAbstractModule {
+public class MySQLCoreModule extends DefaultAbstractModule {
 
-    private final Injector inj = Guice.createInjector(new InjectionConfigCompanyCore());
+    private final Injector inj = Guice.createInjector(new InjectionConfigMySQLCore());
 
-    private static CompanyCoreModule INSTANCE;
+    private static MySQLCoreModule INSTANCE;
 
-    public static CompanyCoreModule getInstance() {
+    public static MySQLCoreModule getInstance() {
         if (INSTANCE == null) {
-            throw new NullPointerException("El modulo de company no se ha inicializado");
+            throw new NullPointerException("El modulo de MySQL no se ha inicializado");
         }
         return INSTANCE;
     }
 
-    public static CompanyCoreModule init(AbstractModule repoModule) {
-        INSTANCE = new CompanyCoreModule();
+    public static MySQLCoreModule init(AbstractModule repoModule) {
+        INSTANCE = new MySQLCoreModule();
         INSTANCE.registerModule(repoModule);
         return getInstance();
     }
@@ -36,7 +36,7 @@ public class CompanyCoreModule extends DefaultAbstractModule {
 
     @Override
     public String getModuleName() {
-        return "Company Module";
+        return "MySQL Core Module";
     }
 
 }

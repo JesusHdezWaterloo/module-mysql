@@ -1,12 +1,10 @@
 plugins {
     id 'java'
-    id 'jacoco'
-    id 'application'
 }
 
-group = 'com.jhw.company'
+group = 'com.jhw.mysql'
 
-mainClassName = 'com.jhw.company.Main'
+//mainClassName = 'com.jhw.mysql.Main'
 
 repositories {
     jcenter()

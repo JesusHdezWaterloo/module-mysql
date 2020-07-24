@@ -1,4 +1,4 @@
-rootProject.name = 'Company'
+rootProject.name = 'MySQL'
 
 include ':utils', ':clean-core', ':clean-swing', 'material-swing'
 
