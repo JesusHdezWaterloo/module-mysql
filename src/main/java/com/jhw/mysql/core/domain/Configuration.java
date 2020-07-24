@@ -9,7 +9,7 @@ import com.jhw.utils.clean.EntityDomainObjectValidated;
 public class Configuration extends EntityDomainObjectValidated {
 
     private boolean startMysqlService = false;
-    private String xamppFolder = "C:\\meca_xampp\\xampp";
+    private String batchFolder = "C:\\meca_xampp\\xampp";
 
     private boolean saveDbAfterClose = true;
     private String dbSaveFolder = "salvas_bd";
@@ -30,12 +30,12 @@ public class Configuration extends EntityDomainObjectValidated {
         this.startMysqlService = startMysqlService;
     }
 
-    public String getXamppFolder() {
-        return xamppFolder;
+    public String getBatchFolder() {
+        return batchFolder;
     }
 
-    public void setXamppFolder(String xamppFolder) {
-        this.xamppFolder = xamppFolder;
+    public void setBatchFolder(String batchFolder) {
+        this.batchFolder = batchFolder;
     }
 
     public boolean isSaveDbAfterClose() {

@@ -23,7 +23,10 @@ public class Main {
         MySQLCoreModule core = MySQLCoreModule.init(MySQLRepoModule.init());
         MySQLUseCase MySQLUC = core.getImplementation(MySQLUseCase.class);
 
-        MySQLUC.read();
+        MySQLUC.start();
+        MySQLUC.save();
+        Thread.sleep(5 * 1000);
+        MySQLUC.close();
     }
 
 }

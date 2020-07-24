@@ -1,15 +1,16 @@
 package com.jhw.mysql.ui.module;
 
+import com.clean.core.app.services.ExceptionHandler;
 import com.clean.swing.app.AbstractSwingApplication;
 import com.clean.swing.app.AbstractSwingMainModule;
+import com.clean.swing.app.RootView;
 import com.clean.swing.app.dashboard.DashBoardSimple;
-import com.clean.swing.app.dashboard.DashboardConstants;
 import com.jhw.mysql.core.module.MySQLCoreModule;
-import com.jhw.swing.material.standars.MaterialIcons;
 import com.jhw.mysql.repo.module.MySQLRepoModule;
-import com.jhw.swing.util.AbstractActionUtils;
-import javax.swing.ImageIcon;
 import com.jhw.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.mysql.services.MySQLNotificationService;
+import com.jhw.mysql.services.MySQLResourceService;
+import java.beans.PropertyChangeEvent;
 
 public class MySQLSwingModule implements AbstractSwingMainModule {
 
@@ -22,7 +23,14 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
     }
 
     private void init() {
-        System.out.println("Creando 'MySQL'");
+        System.out.println("Iniciando 'Base de Datos'");
+        MySQLNotificationService.init();
+
+        try {
+            MySQLResourceService.init();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
 
         MySQLCoreModule core = MySQLCoreModule.init(MySQLRepoModule.init());
         MySQLUC = core.getImplementation(MySQLUseCase.class);
@@ -30,13 +38,23 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
 
     @Override
     public void register(AbstractSwingApplication app) {
+        MySQLUC.start();
         registerLicence(app);
     }
 
     private void registerLicence(AbstractSwingApplication app) {
         DashBoardSimple dash = app.rootView().dashboard();
 
-       
+        app.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            switch (evt.getPropertyName()) {
+                case RootView.ON_WINDOWS_CLOSING:
+                    MySQLUC.save();
+                    MySQLUC.close();
+                    break;
+
+            }
+        });
+
     }
 
     @Override
