@@ -5,9 +5,7 @@ import com.clean.swing.app.AbstractSwingApplication;
 import com.clean.swing.app.AbstractSwingMainModule;
 import com.clean.swing.app.RootView;
 import com.clean.swing.app.dashboard.DashBoardSimple;
-import com.jhw.mysql.core.module.MySQLCoreModule;
-import com.jhw.mysql.repo.module.MySQLRepoModule;
-import com.jhw.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.mysql.services.MySQLHandler;
 import com.jhw.mysql.services.MySQLNotificationService;
 import com.jhw.mysql.services.MySQLResourceService;
 import java.beans.PropertyChangeEvent;
@@ -15,8 +13,6 @@ import java.beans.PropertyChangeEvent;
 public class MySQLSwingModule implements AbstractSwingMainModule {
 
     private final MySQLModuleNavigator navigator = new MySQLModuleNavigator();
-
-    public static MySQLUseCase MySQLUC;
 
     public MySQLSwingModule() {
         init();
@@ -31,14 +27,11 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
-
-        MySQLCoreModule core = MySQLCoreModule.init(MySQLRepoModule.init());
-        MySQLUC = core.getImplementation(MySQLUseCase.class);
     }
 
     @Override
     public void register(AbstractSwingApplication app) {
-        MySQLUC.start();
+        MySQLHandler.start();
         registerLicence(app);
     }
 
@@ -48,8 +41,8 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
         app.addPropertyChangeListener((PropertyChangeEvent evt) -> {
             switch (evt.getPropertyName()) {
                 case RootView.ON_WINDOWS_CLOSING:
-                    MySQLUC.save();
-                    MySQLUC.close();
+                    MySQLHandler.save();
+                    MySQLHandler.close();
                     break;
 
             }
