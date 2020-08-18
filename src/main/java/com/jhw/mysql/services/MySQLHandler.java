@@ -9,6 +9,10 @@ import com.jhw.mysql.core.domain.Configuration;
 import com.jhw.mysql.core.module.MySQLCoreModule;
 import com.jhw.mysql.core.usecase_def.MySQLUseCase;
 import com.jhw.mysql.repo.module.MySQLRepoModule;
+import java.util.HashMap;
+import java.util.Map;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -40,4 +44,16 @@ public class MySQLHandler {
     public static Configuration load() throws Exception {
         return MySQLUC.read();
     }
+
+    public static Map propertiesMap() throws Exception {
+        Configuration cfg = load();
+        HashMap map = new HashMap();
+        String url = "jdbc:mysql://" + cfg.getIp() + ":" + cfg.getPort() + "/" + cfg.getDbName() + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+        map.put("javax.persistence.jdbc.url", url);
+        map.put("javax.persistence.jdbc.user", cfg.getUser());
+        map.put("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
+        map.put("javax.persistence.jdbc.password", cfg.getPass());
+        return map;
+    }
+
 }
