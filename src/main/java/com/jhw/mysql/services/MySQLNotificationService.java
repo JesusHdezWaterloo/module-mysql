@@ -3,9 +3,10 @@ package com.jhw.mysql.services;
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationServiceFunctional;
 import static com.jhw.mysql.core.usecase_impl.MySQLUseCaseImpl.NOTIFICATION_SALVA_DB;
-import com.jhw.swing.material.standars.MaterialIcons;
+import com.jhw.personalization.core.domain.Personalization;
+import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.notification.toast.types.notification.DialogNotificationToastGeneral;
-import com.jhw.swing.personalization.PersonalizationMaterial;
 
 /**
  *
@@ -25,18 +26,18 @@ public class MySQLNotificationService extends NotificationServiceFunctional {
 
     @Override
     protected void addNotifications() {
+        super.addNotification(NOTIFICATION_SALVA_DB, (Object t) -> {
+            DialogNotificationToastGeneral.from(
+                    2 * PersonalizationHandler.getInt(Personalization.KEY_INT_NOTIFICATION_DURATION),
+                    t.toString(),
+                    MaterialIcons.SAVE,
+                    PersonalizationHandler.getColor(Personalization.KEY_COLOR_DONE)
+            );
+        });
     }
 
     @Override
     protected void addConfirmDialog() {
-        super.addNotification(NOTIFICATION_SALVA_DB, (Object t) -> {
-            DialogNotificationToastGeneral.from(
-                    5,
-                    t.toString(),
-                    MaterialIcons.SAVE,
-                    PersonalizationMaterial.getInstance().getColorDone()
-            );
-        });
     }
 
     @Override
