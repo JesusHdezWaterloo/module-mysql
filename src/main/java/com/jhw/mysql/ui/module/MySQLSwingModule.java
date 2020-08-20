@@ -14,11 +14,10 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
 
     private final MySQLModuleNavigator navigator = new MySQLModuleNavigator();
 
-    public MySQLSwingModule() {
-        init();
+    private MySQLSwingModule() {
     }
 
-    private void init() {
+    public static MySQLSwingModule init() {
         System.out.println("Iniciando 'Base de Datos'");
         MySQLNotificationService.init();
 
@@ -27,6 +26,7 @@ public class MySQLSwingModule implements AbstractSwingMainModule {
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
+        return new MySQLSwingModule();
     }
 
     @Override
