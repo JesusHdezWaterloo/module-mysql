@@ -54,7 +54,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
                 exportCmd += t + " ";
             }
             exportCmd += "--no-data=FALSE --extended-insert=FALSE > ";
-            exportCmd += (folder.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".sql").replace(" ", "\" \"");
+            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + System.currentTimeMillis() + ".sql").replace(" ", "\" \"");
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();
             if (resp == 0) {
