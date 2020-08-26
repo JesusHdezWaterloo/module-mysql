@@ -37,7 +37,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     }
 
     @Override
-    public void save() {
+    public void save(String DB_name, String... tables) {
         try {
             Configuration cfg = read();
             File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder());
@@ -49,7 +49,11 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             if (!cfg.getPass().isEmpty()) {
                 exportCmd += " -p " + cfg.getPass();
             }
-            exportCmd += " --port " + cfg.getPort() + " -d " + cfg.getDbName() + " --no-data=FALSE --extended-insert=FALSE > ";
+            exportCmd += " --port " + cfg.getPort() + " -d " + DB_name + " ";
+            for (String t : tables) {
+                exportCmd += t + " ";
+            }
+            exportCmd += "--no-data=FALSE --extended-insert=FALSE > ";
             exportCmd += (folder.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".sql").replace(" ", "\" \"");
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();

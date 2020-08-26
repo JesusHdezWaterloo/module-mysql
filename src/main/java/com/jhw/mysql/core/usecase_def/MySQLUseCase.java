@@ -16,7 +16,7 @@ public interface MySQLUseCase extends ReadWriteUseCase<Configuration> {
 
     public void close();
 
-    public void save();
+    public void save(String DB_name, String... tables);
 
     public void update(List<String> sqlToRun);
 }
