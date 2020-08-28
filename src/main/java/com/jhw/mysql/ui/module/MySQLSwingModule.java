@@ -2,12 +2,12 @@ package com.jhw.mysql.ui.module;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.swing.app.AbstractSwingApplication;
-import com.clean.swing.app.AbstractSwingMainModule;
+import com.clean.swing.app.DefaultAbstractSwingMainModule;
 import com.jhw.mysql.services.MySQLHandler;
 import com.jhw.mysql.services.MySQLNotificationService;
 import com.jhw.mysql.services.MySQLResourceService;
 
-public class MySQLSwingModule implements AbstractSwingMainModule {
+public class MySQLSwingModule extends DefaultAbstractSwingMainModule {
 
     private final MySQLModuleNavigator navigator = new MySQLModuleNavigator();
 
