@@ -17,7 +17,6 @@ public class Configuration extends EntityDomainObjectValidated {
     private String pass = "";
     private String port = "7733";
     private String ip = "localhost";
-    private String dbName = "meca_db";
 
     public Configuration() {
     }
@@ -84,14 +83,6 @@ public class Configuration extends EntityDomainObjectValidated {
 
     public void setPort(String port) {
         this.port = port;
-    }
-
-    public String getDbName() {
-        return dbName;
-    }
-
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
     }
 
 }

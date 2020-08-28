@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import com.jhw.mysql.core.repo_def.MySQLRepo;
 import com.jhw.mysql.core.usecase_def.MySQLUseCase;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> implements MySQLUseCase {
@@ -28,6 +30,9 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
      */
     private final MySQLRepo repo = MySQLCoreModule.getInstance().getImplementation(MySQLRepo.class);
 
+    private final SimpleDateFormat sdfDia = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat sdfAll = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
+
     /**
      * Constructor por defecto, usado par injectar.
      */
@@ -37,10 +42,10 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     }
 
     @Override
-    public void save() {
+    public void save(String DB_name, String... tables) {
         try {
             Configuration cfg = read();
-            File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder());
+            File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder() + File.separator + sdfDia.format(new Date()));
             folder.mkdirs();
 
             String exportCmd = (cfg.getBatchFolder() + File.separator + "mysql" + File.separator + "bin" + File.separator).replace(" ", "\" \"");
@@ -49,8 +54,12 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             if (!cfg.getPass().isEmpty()) {
                 exportCmd += " -p " + cfg.getPass();
             }
-            exportCmd += " --port " + cfg.getPort() + " -d " + cfg.getDbName() + " --no-data=FALSE --extended-insert=FALSE > ";
-            exportCmd += (folder.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".sql").replace(" ", "\" \"");
+            exportCmd += " --port " + cfg.getPort() + " -d " + DB_name + " ";
+            for (String t : tables) {
+                exportCmd += t + " ";
+            }
+            exportCmd += "--no-data=FALSE --extended-insert=FALSE > ";
+            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + "_" + sdfAll.format(new Date()) + ".sql").replace(" ", "\" \"");
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();
             if (resp == 0) {
