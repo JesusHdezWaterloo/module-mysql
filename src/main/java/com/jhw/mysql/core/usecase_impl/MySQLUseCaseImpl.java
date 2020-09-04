@@ -11,9 +11,14 @@ import javax.inject.Inject;
 import com.jhw.mysql.core.repo_def.MySQLRepo;
 import com.jhw.mysql.core.usecase_def.MySQLUseCase;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.net.ServerSocketFactory;
 
 public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> implements MySQLUseCase {
 
@@ -114,6 +119,26 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     @Override
     public void update(List<String> sqlToRun) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isRunning() {
+        Socket socket = null;
+        try {
+            Configuration cfg = read();
+            socket = new Socket(cfg.getIp(), cfg.getPort());
+            return true;//socket.isConnected();
+        } catch (Exception e) {
+        } finally {
+            if (socket != null) {
+                try {
+                    socket.close();
+                    socket = null;
+                } catch (Exception e) {
+                }
+            }
+        }
+        return false;
     }
 
 }

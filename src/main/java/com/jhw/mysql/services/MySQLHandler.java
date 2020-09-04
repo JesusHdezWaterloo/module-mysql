@@ -43,6 +43,10 @@ public class MySQLHandler {
         return MySQLUC.read();
     }
 
+    public static boolean isRunning() {
+        return MySQLUC.isRunning();
+    }
+
     public static Map propertiesMap(String DB_Name) throws Exception {
         Configuration cfg = load();
         HashMap map = new HashMap();
