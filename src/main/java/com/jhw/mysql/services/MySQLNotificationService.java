@@ -6,7 +6,8 @@ import static com.jhw.mysql.core.usecase_impl.MySQLUseCaseImpl.NOTIFICATION_SALV
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.standards.MaterialIcons;
-import com.jhw.swing.notification.toast.types.notification.DialogNotificationToastGeneral;
+import com.jhw.swing.notification.NotificationBuilder;
+import com.jhw.swing.notification.NotificationFactory;
 
 /**
  *
@@ -27,12 +28,11 @@ public class MySQLNotificationService extends NotificationServiceFunctional {
     @Override
     protected void addNotifications() {
         super.addNotification(NOTIFICATION_SALVA_DB, (Object t) -> {
-            DialogNotificationToastGeneral.from(
-                    2 * PersonalizationHandler.getInt(Personalization.KEY_INT_NOTIFICATION_DURATION),
-                    t.toString(),
-                    MaterialIcons.SAVE,
-                    PersonalizationHandler.getColor(Personalization.KEY_COLOR_DONE)
-            );
+             NotificationFactory.buildNotificationTOAST(NotificationBuilder.builder().
+                    delaySeconds( 2 * PersonalizationHandler.getInt(Personalization.KEY_INT_NOTIFICATION_DURATION))
+                    .text(t.toString())
+                    .icon(MaterialIcons.SAVE)
+                    .color(PersonalizationHandler.getColor(Personalization.KEY_COLOR_DONE)));
         });
     }
 

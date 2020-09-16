@@ -15,7 +15,7 @@ public class Configuration extends EntityDomainObjectValidated {
     private String dbSaveFolder = "salvas_bd";
     private String user = "root";
     private String pass = "";
-    private String port = "7733";
+    private int port = 7733;
     private String ip = "localhost";
 
     public Configuration() {
@@ -77,11 +77,11 @@ public class Configuration extends EntityDomainObjectValidated {
         this.pass = pass;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(int port) {
         this.port = port;
     }
 

@@ -3,6 +3,7 @@ package com.jhw.mysql.ui.module;
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.swing.app.AbstractSwingApplication;
 import com.clean.swing.app.DefaultAbstractSwingMainModule;
+import com.jhw.mysql.services.MySQLExceptionHandler;
 import com.jhw.mysql.services.MySQLHandler;
 import com.jhw.mysql.services.MySQLNotificationService;
 import com.jhw.mysql.services.MySQLResourceService;
@@ -17,7 +18,7 @@ public class MySQLSwingModule extends DefaultAbstractSwingMainModule {
     public static MySQLSwingModule init() {
         System.out.println("Iniciando 'Base de Datos'");
         MySQLNotificationService.init();
-
+        MySQLExceptionHandler.init();
         try {
             MySQLResourceService.init();
         } catch (Exception e) {
