@@ -24,12 +24,12 @@ public class MySQLSwingModule extends DefaultAbstractSwingMainModule {
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
+        MySQLHandler.start();
         return new MySQLSwingModule();
     }
 
     @Override
     public void register(AbstractSwingApplication app) {
-        MySQLHandler.start();
     }
 
     @Override

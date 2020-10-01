@@ -85,6 +85,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             if (cfg.isStartMysqlService()) {//inicia mysql
                 String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_start.bat";
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
+                Thread.sleep(5 * 1000);//para qeu le de tiempo de verdad a arrancar, no hace falta, pero no sobra
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
                             Resource.getString(MSG_STARTED));
