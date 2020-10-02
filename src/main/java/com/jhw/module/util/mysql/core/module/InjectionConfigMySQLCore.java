@@ -1,8 +1,8 @@
-package com.jhw.mysql.core.module;
+package com.jhw.module.util.mysql.core.module;
 
 import com.google.inject.AbstractModule;
-import com.jhw.mysql.core.usecase_impl.MySQLUseCaseImpl;
-import com.jhw.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.module.util.mysql.core.usecase_impl.MySQLUseCaseImpl;
+import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
 
 /**
  * Configuracion del injection del modulo de licencia-core.

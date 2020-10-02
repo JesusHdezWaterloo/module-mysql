@@ -1,6 +1,5 @@
-package com.jhw.mysql.core.module;
+package com.jhw.module.util.mysql.repo.module;
 
-import com.clean.core.app.modules.AbstractModule;
 import com.clean.core.app.modules.DefaultAbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -10,22 +9,24 @@ import com.google.inject.Injector;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class MySQLCoreModule extends DefaultAbstractModule {
+public class MySQLRepoModule extends DefaultAbstractModule {
 
-    private final Injector inj = Guice.createInjector(new InjectionConfigMySQLCore());
+    private final Injector inj = Guice.createInjector(new InjectionConfigMySQLRepo());
 
-    private static MySQLCoreModule INSTANCE;
+    private static MySQLRepoModule INSTANCE;
 
-    public static MySQLCoreModule getInstance() {
+    private MySQLRepoModule() {
+    }
+
+    public static MySQLRepoModule getInstance() {
         if (INSTANCE == null) {
             throw new NullPointerException("El modulo de MySQL no se ha inicializado");
         }
         return INSTANCE;
     }
 
-    public static MySQLCoreModule init(AbstractModule repoModule) {
-        INSTANCE = new MySQLCoreModule();
-        INSTANCE.registerModule(repoModule);
+    public static MySQLRepoModule init() {
+        INSTANCE = new MySQLRepoModule();
         return getInstance();
     }
 
@@ -36,7 +37,7 @@ public class MySQLCoreModule extends DefaultAbstractModule {
 
     @Override
     public String getModuleName() {
-        return "MySQL Core Module";
+        return "MySQL Repo Module";
     }
 
 }

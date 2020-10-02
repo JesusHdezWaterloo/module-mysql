@@ -1,7 +1,7 @@
-package com.jhw.mysql.core.usecase_def;
+package com.jhw.module.util.mysql.core.usecase_def;
 
 import com.clean.core.app.usecase.ReadWriteUseCase;
-import com.jhw.mysql.core.domain.Configuration;
+import com.jhw.module.util.mysql.core.domain.Configuration;
 import java.util.List;
 
 /**

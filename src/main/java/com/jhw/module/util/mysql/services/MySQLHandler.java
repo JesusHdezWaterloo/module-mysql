@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jhw.mysql.services;
+package com.jhw.module.util.mysql.services;
 
-import com.jhw.mysql.core.domain.Configuration;
-import com.jhw.mysql.core.module.MySQLCoreModule;
-import com.jhw.mysql.core.usecase_def.MySQLUseCase;
-import com.jhw.mysql.repo.module.MySQLRepoModule;
+import com.jhw.module.util.mysql.core.domain.Configuration;
+import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
+import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.module.util.mysql.repo.module.MySQLRepoModule;
 import java.util.HashMap;
 import java.util.Map;
 

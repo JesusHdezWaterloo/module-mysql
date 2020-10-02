@@ -1,8 +1,8 @@
-package com.jhw.mysql.repo.module;
+package com.jhw.module.util.mysql.repo.module;
 
-import com.jhw.mysql.repo.repo_impl.MySQLRepoImpl;
+import com.jhw.module.util.mysql.repo.repo_impl.MySQLRepoImpl;
 import com.google.inject.AbstractModule;
-import com.jhw.mysql.core.repo_def.MySQLRepo;
+import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
 
 /**
  * Configuracion del injection del modulo de licencia-repo.

@@ -1,7 +1,7 @@
-package com.jhw.mysql.core.repo_def;
+package com.jhw.module.util.mysql.core.repo_def;
 
 import com.clean.core.app.repo.ReadWriteRepository;
-import com.jhw.mysql.core.domain.Configuration;
+import com.jhw.module.util.mysql.core.domain.Configuration;
 
 /**
  * Interfaz de Repo para definir el trabajo de almacenamiento de la compania.

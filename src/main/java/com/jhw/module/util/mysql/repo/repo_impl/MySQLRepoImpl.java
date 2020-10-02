@@ -1,11 +1,11 @@
-package com.jhw.mysql.repo.repo_impl;
+package com.jhw.module.util.mysql.repo.repo_impl;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.domain.services.Resource;
-import com.jhw.mysql.core.domain.Configuration;
+import com.jhw.module.util.mysql.core.domain.Configuration;
 import javax.inject.Inject;
-import com.jhw.mysql.core.repo_def.MySQLRepo;
+import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
 import com.jhw.utils.jackson.JACKSONRepoGeneral;
 
 /**
