@@ -1,10 +1,10 @@
-package com.jhw.mysql.services;
+package com.jhw.module.util.mysql.services;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationServiceFunctional;
-import static com.jhw.mysql.core.usecase_impl.MySQLUseCaseImpl.NOTIFICATION_SALVA_DB;
-import com.jhw.personalization.core.domain.Personalization;
-import com.jhw.personalization.services.PersonalizationHandler;
+import static com.jhw.module.util.mysql.core.usecase_impl.MySQLUseCaseImpl.NOTIFICATION_SALVA_DB;
+import com.jhw.module.util.personalization.core.domain.Personalization;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.notification.NotificationBuilder;
 import com.jhw.swing.notification.NotificationFactory;

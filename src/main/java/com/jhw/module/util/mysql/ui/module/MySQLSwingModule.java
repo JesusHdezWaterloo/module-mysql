@@ -1,12 +1,12 @@
-package com.jhw.mysql.ui.module;
+package com.jhw.module.util.mysql.ui.module;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.swing.app.AbstractSwingApplication;
 import com.clean.swing.app.DefaultAbstractSwingMainModule;
-import com.jhw.mysql.services.MySQLExceptionHandler;
-import com.jhw.mysql.services.MySQLHandler;
-import com.jhw.mysql.services.MySQLNotificationService;
-import com.jhw.mysql.services.MySQLResourceService;
+import com.jhw.module.util.mysql.services.MySQLExceptionHandler;
+import com.jhw.module.util.mysql.services.MySQLHandler;
+import com.jhw.module.util.mysql.services.MySQLNotificationService;
+import com.jhw.module.util.mysql.services.MySQLResourceService;
 
 public class MySQLSwingModule extends DefaultAbstractSwingMainModule {
 

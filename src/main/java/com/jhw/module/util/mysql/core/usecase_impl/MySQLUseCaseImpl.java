@@ -1,15 +1,15 @@
-package com.jhw.mysql.core.usecase_impl;
+package com.jhw.module.util.mysql.core.usecase_impl;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.app.usecase.DefaultReadWriteUseCase;
 import com.clean.core.domain.services.Resource;
-import com.jhw.mysql.core.domain.Configuration;
-import com.jhw.mysql.core.module.MySQLCoreModule;
+import com.jhw.module.util.mysql.core.domain.Configuration;
+import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
 import javax.inject.Inject;
-import com.jhw.mysql.core.repo_def.MySQLRepo;
-import com.jhw.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
+import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

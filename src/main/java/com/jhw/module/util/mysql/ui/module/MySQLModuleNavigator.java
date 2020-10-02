@@ -1,4 +1,4 @@
-package com.jhw.mysql.ui.module;
+package com.jhw.module.util.mysql.ui.module;
 
 import com.clean.core.app.services.NavigationService;
 

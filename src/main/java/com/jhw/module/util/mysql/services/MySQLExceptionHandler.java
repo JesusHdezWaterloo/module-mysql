@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jhw.mysql.services;
+package com.jhw.module.util.mysql.services;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.services.ExceptionHandlerServiceFunctional;

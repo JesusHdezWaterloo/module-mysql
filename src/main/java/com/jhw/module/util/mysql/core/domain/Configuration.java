@@ -1,4 +1,4 @@
-package com.jhw.mysql.core.domain;
+package com.jhw.module.util.mysql.core.domain;
 
 import com.jhw.utils.clean.EntityDomainObjectValidated;
 
