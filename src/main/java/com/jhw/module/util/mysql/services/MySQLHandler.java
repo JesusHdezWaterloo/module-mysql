@@ -23,6 +23,16 @@ public class MySQLHandler {
     private MySQLHandler() {
     }
 
+    public static void init() {
+        System.out.println("Iniciando 'Base de Datos'");
+        try {
+            MySQLResourceService.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        MySQLHandler.start();
+    }
+
     public static void registerMySQLService(MySQLUseCase newService) {
         MySQLUC = newService;
     }

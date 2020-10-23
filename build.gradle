@@ -15,14 +15,6 @@ dependencies {
     
     implementation project(':utils-core')
     implementation project(':clean-core-full')
-    implementation project(':clean-swing')
-    
-    implementation project(':swing-derivable_icons')
-    implementation project(':swing-material-standards')
-    implementation project(':module-util-personalization')
-    
-    implementation project(':swing-material-core')
-    implementation project(':swing-material-notifications')
     
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
     
