@@ -10,15 +10,12 @@ import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
 import javax.inject.Inject;
 import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
 import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
+import com.jhw.utils.others.Red;
 import java.io.File;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javax.net.ServerSocketFactory;
 
 public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> implements MySQLUseCase {
 
@@ -35,8 +32,8 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
      */
     private final MySQLRepo repo = MySQLCoreModule.getInstance().getImplementation(MySQLRepo.class);
 
-    private final SimpleDateFormat sdfDia = new SimpleDateFormat("yyyy-MM-dd");
-    private final SimpleDateFormat sdfAll = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
+    private final DateTimeFormatter dtfDia = DateTimeFormatter.ISO_DATE;
+    private final DateTimeFormatter sdfAll = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm");
 
     /**
      * Constructor por defecto, usado par injectar.
@@ -49,8 +46,12 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     @Override
     public void save(String DB_name, String... tables) {
         try {
+            if (!isRunning()) {
+                throw new Exception("El servicio de BD no esta corriendo");
+            }
+
             Configuration cfg = read();
-            File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder() + File.separator + sdfDia.format(new Date()));
+            File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder() + File.separator + dtfDia.format(LocalDate.now()));
             folder.mkdirs();
 
             String exportCmd = (cfg.getBatchFolder() + File.separator + "mysql" + File.separator + "bin" + File.separator).replace(" ", "\" \"");
@@ -64,7 +65,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
                 exportCmd += t + " ";
             }
             exportCmd += "--no-data=FALSE --extended-insert=FALSE > ";
-            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + "_" + sdfAll.format(new Date()) + ".sql").replace(" ", "\" \"");
+            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + "_" + sdfAll.format(LocalDateTime.now()) + ".sql").replace(" ", "\" \"");
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();
             if (resp == 0) {
@@ -82,10 +83,9 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public void start() {
         try {
             Configuration cfg = read();
-            if (cfg.isStartMysqlService()) {//inicia mysql
+            if (cfg.isStartMysqlService() && !isRunning()) {//si hay que iniciar y no esta corriendo
                 String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_start.bat";
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
-                Thread.sleep(5 * 1000);//para qeu le de tiempo de verdad a arrancar, no hace falta, pero no sobra
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
                             Resource.getString(MSG_STARTED));
@@ -102,12 +102,14 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public void close() {
         try {
             Configuration cfg = read();
-            if (cfg.isStartMysqlService()) {//inicia mysql
+            if (cfg.isStartMysqlService() && isRunning()) {//si hay que cerrar, y esta corriendo
                 String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_stop.bat";
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
                             Resource.getString(MSG_CLOSED));
+                } else {
+                    throw new Exception();
                 }
             }
         } catch (Exception e) {
@@ -124,22 +126,12 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
 
     @Override
     public boolean isRunning() {
-        Socket socket = null;
         try {
             Configuration cfg = read();
-            socket = new Socket(cfg.getIp(), cfg.getPort());
-            return true;//socket.isConnected();
+            return Red.isRunning(cfg.getIp(), cfg.getPort());
         } catch (Exception e) {
-        } finally {
-            if (socket != null) {
-                try {
-                    socket.close();
-                    socket = null;
-                } catch (Exception e) {
-                }
-            }
+            return false;
         }
-        return false;
     }
 
 }

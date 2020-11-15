@@ -12,7 +12,7 @@ import com.google.inject.Injector;
  */
 public class MySQLCoreModule extends DefaultAbstractModule {
 
-    private final Injector inj = Guice.createInjector(new InjectionConfigMySQLCore());
+    private final Injector inj = Guice.createInjector(new MySQLCoreInjectionConfig());
 
     private static MySQLCoreModule INSTANCE;
 
