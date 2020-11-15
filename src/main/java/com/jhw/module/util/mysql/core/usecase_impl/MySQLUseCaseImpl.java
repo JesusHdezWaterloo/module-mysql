@@ -47,7 +47,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public void save(String DB_name, String... tables) {
         try {
             if (!isRunning()) {
-                throw new Exception("El servicio de BD no esta corriendo");
+                throw new Exception("El servicio de MySQL no esta corriendo");
             }
 
             Configuration cfg = read();
@@ -83,7 +83,11 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public void start() {
         try {
             Configuration cfg = read();
-            if (cfg.isStartMysqlService() && !isRunning()) {//si hay que iniciar y no esta corriendo
+            if (!cfg.isStartMysqlService()) {
+                System.out.println("El FLAG para iniciar el servicio de MySQL está desactivado");
+            } else if (isRunning()) {
+                System.out.println("El servicio de MySQL ya esta corriendo");
+            } else {
                 String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_start.bat";
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 if (resp == 0) {
@@ -102,7 +106,11 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public void close() {
         try {
             Configuration cfg = read();
-            if (cfg.isStartMysqlService() && isRunning()) {//si hay que cerrar, y esta corriendo
+            if (!cfg.isStartMysqlService()) {
+                System.out.println("El FLAG para iniciar el servicio de MySQL está desactivado");
+            } else if (!isRunning()) {
+                System.out.println("El servicio de MySQL NO esta corriendo");
+            } else {
                 String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_stop.bat";
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 if (resp == 0) {
