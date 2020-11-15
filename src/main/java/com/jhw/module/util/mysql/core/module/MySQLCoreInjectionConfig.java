@@ -9,7 +9,7 @@ import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class InjectionConfigMySQLCore extends AbstractModule {
+public class MySQLCoreInjectionConfig extends AbstractModule {
 
     @Override
     protected void configure() {
