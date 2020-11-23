@@ -19,6 +19,12 @@ import java.util.List;
 
 public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> implements MySQLUseCase {
 
+    public static final int DELAY = 3 * 1000;
+
+    public static final String PROPERTY_STARTED = "mysql_started";
+    public static final String PROPERTY_CLOSED = "mysql_closed";
+    public static final String PROPERTY_SAVED = "mysql_saved";
+
     public static final String NOTIFICATION_SALVA_DB = "notification.mysql.saved";
     public static final String MSG_SAVED = "msg.mysql.success.saved_db";
     public static final String MSG_NO_SAVED = "msg.mysql.error.no_save";
@@ -33,7 +39,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     private final MySQLRepo repo = MySQLCoreModule.getInstance().getImplementation(MySQLRepo.class);
 
     private final DateTimeFormatter dtfDia = DateTimeFormatter.ISO_DATE;
-    private final DateTimeFormatter dtfAll = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm");
+    private final DateTimeFormatter dtfAll = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 
     /**
      * Constructor por defecto, usado par injectar.
@@ -71,6 +77,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             if (resp == 0) {
                 Notification.showNotification(NOTIFICATION_SALVA_DB,
                         Resource.getString(MSG_SAVED));
+                    firePropertyChange(PROPERTY_SAVED, false, true);
             }
         } catch (Exception e) {
             Exception ex = new Exception(Resource.getString(MSG_NO_SAVED));
@@ -90,9 +97,11 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             } else {
                 String cmd = "start /B " + cfg.getBatStart();
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
+                Thread.sleep(3 * 1000);//pa si x si acaso
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
                             Resource.getString(MSG_STARTED));
+                    firePropertyChange(PROPERTY_STARTED, false, true);
                 }
             }
         } catch (Exception e) {
@@ -113,9 +122,11 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             } else {
                 String cmd = "start /B " + cfg.getBatStop();
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
+                Thread.sleep(3 * 1000);//pa si x si acaso
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
                             Resource.getString(MSG_CLOSED));
+                    firePropertyChange(PROPERTY_CLOSED, false, true);
                 } else {
                     throw new Exception();
                 }
