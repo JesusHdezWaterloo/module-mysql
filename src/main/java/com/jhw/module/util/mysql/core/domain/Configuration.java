@@ -9,7 +9,9 @@ import com.jhw.utils.clean.EntityDomainObjectValidated;
 public class Configuration extends EntityDomainObjectValidated {
 
     private boolean startMysqlService = false;
-    private String batchFolder = "C:\\meca_xampp\\xampp";
+    private String batDumpFolder = "E:\\xampp\\mysql\\bin\\mysqldump";
+    private String batStart = "E:\\xampp\\mysql_start.bat";
+    private String batStop = "E:\\xampp\\mysql_stop.bat";
 
     private boolean saveDbAfterClose = true;
     private String dbSaveFolder = "salvas_bd";
@@ -29,12 +31,28 @@ public class Configuration extends EntityDomainObjectValidated {
         this.startMysqlService = startMysqlService;
     }
 
-    public String getBatchFolder() {
-        return batchFolder;
+    public String getBatDumpFolder() {
+        return batDumpFolder;
     }
 
-    public void setBatchFolder(String batchFolder) {
-        this.batchFolder = batchFolder;
+    public void setBatDumpFolder(String batDumpFolder) {
+        this.batDumpFolder = batDumpFolder;
+    }
+
+    public String getBatStart() {
+        return batStart;
+    }
+
+    public void setBatStart(String batStart) {
+        this.batStart = batStart;
+    }
+
+    public String getBatStop() {
+        return batStop;
+    }
+
+    public void setBatStop(String batStop) {
+        this.batStop = batStop;
     }
 
     public boolean isSaveDbAfterClose() {
@@ -61,14 +79,6 @@ public class Configuration extends EntityDomainObjectValidated {
         this.user = user;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     public String getPass() {
         return pass;
     }
@@ -83,6 +93,14 @@ public class Configuration extends EntityDomainObjectValidated {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
 }
