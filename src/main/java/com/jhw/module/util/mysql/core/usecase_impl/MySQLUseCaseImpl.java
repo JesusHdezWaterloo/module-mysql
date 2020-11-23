@@ -33,7 +33,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     private final MySQLRepo repo = MySQLCoreModule.getInstance().getImplementation(MySQLRepo.class);
 
     private final DateTimeFormatter dtfDia = DateTimeFormatter.ISO_DATE;
-    private final DateTimeFormatter sdfAll = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm");
+    private final DateTimeFormatter dtfAll = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm");
 
     /**
      * Constructor por defecto, usado par injectar.
@@ -54,9 +54,9 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             File folder = new File(new File("").getAbsolutePath() + File.separator + cfg.getDbSaveFolder() + File.separator + dtfDia.format(LocalDate.now()));
             folder.mkdirs();
 
-            String exportCmd = (cfg.getBatchFolder() + File.separator + "mysql" + File.separator + "bin" + File.separator).replace(" ", "\" \"");
+            String exportCmd = cfg.getBatDumpFolder().replace(" ", "\" \"");
 
-            exportCmd += "mysqldump -u " + cfg.getUser();
+            exportCmd += " -u " + cfg.getUser();
             if (!cfg.getPass().isEmpty()) {
                 exportCmd += " -p " + cfg.getPass();
             }
@@ -65,7 +65,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
                 exportCmd += t + " ";
             }
             exportCmd += "--no-data=FALSE --extended-insert=FALSE > ";
-            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + "_" + sdfAll.format(LocalDateTime.now()) + ".sql").replace(" ", "\" \"");
+            exportCmd += (folder.getAbsolutePath() + File.separator + File.separator + DB_name + "_" + dtfAll.format(LocalDateTime.now()) + ".sql").replace(" ", "\" \"");
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();
             if (resp == 0) {
@@ -88,7 +88,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             } else if (isRunning()) {
                 System.out.println("El servicio de MySQL ya esta corriendo");
             } else {
-                String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_start.bat";
+                String cmd = "start /B " + cfg.getBatStart();
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
@@ -111,7 +111,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
             } else if (!isRunning()) {
                 System.out.println("El servicio de MySQL NO esta corriendo");
             } else {
-                String cmd = "start /B " + cfg.getBatchFolder() + File.separator + "mysql_stop.bat";
+                String cmd = "start /B " + cfg.getBatStop();
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 if (resp == 0) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
