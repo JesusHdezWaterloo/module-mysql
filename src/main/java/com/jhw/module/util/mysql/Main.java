@@ -5,6 +5,8 @@
  */
 package com.jhw.module.util.mysql;
 
+import com.jhw.module.util.mysql.services.MySQLHandler;
+
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
@@ -15,7 +17,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-
+        System.out.println(MySQLHandler.isRunning());
+        MySQLHandler.start();
+        MySQLHandler.save("admin_kanban");
+        MySQLHandler.close();
+        System.out.println(MySQLHandler.isRunning());
     }
 
 }
