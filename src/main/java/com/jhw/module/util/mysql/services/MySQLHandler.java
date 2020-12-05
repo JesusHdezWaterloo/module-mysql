@@ -8,7 +8,6 @@ package com.jhw.module.util.mysql.services;
 import com.jhw.module.util.mysql.core.domain.Configuration;
 import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
 import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
-import com.jhw.module.util.mysql.repo.module.MySQLRepoModule;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +18,7 @@ import java.util.Map;
  */
 public class MySQLHandler {
 
-    private static MySQLUseCase MySQLUC = MySQLCoreModule.init(MySQLRepoModule.init()).getImplementation(MySQLUseCase.class);
+    private static MySQLUseCase MySQLUC = MySQLCoreModule.init().getImplementation(MySQLUseCase.class);
 
     private MySQLHandler() {
     }
@@ -69,11 +68,11 @@ public class MySQLHandler {
         return map;
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener pl) {
+    public static void addPropertyChangeListener(PropertyChangeListener pl) {
         MySQLUC.addPropertyChangeListener(pl);
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener pl) {
+    public static void removePropertyChangeListener(PropertyChangeListener pl) {
         MySQLUC.removePropertyChangeListener(pl);
     }
 }

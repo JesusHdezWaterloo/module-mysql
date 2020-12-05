@@ -9,7 +9,7 @@ import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class InjectionConfigMySQLRepo extends AbstractModule {
+public class MySQLRepoInjectionConfig extends AbstractModule {
 
     @Override
     protected void configure() {

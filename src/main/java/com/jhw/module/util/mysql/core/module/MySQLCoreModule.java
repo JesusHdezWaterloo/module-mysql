@@ -4,6 +4,7 @@ import com.clean.core.app.modules.AbstractModule;
 import com.clean.core.app.modules.DefaultAbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.jhw.module.util.mysql.repo.module.MySQLRepoModule;
 
 /**
  * Modulo de licencia-core.
@@ -23,6 +24,23 @@ public class MySQLCoreModule extends DefaultAbstractModule {
         return INSTANCE;
     }
 
+    public static MySQLCoreModule init() {
+        if (INSTANCE != null) {
+            return INSTANCE;
+        }
+        INSTANCE = new MySQLCoreModule();
+        INSTANCE.registerModule(MySQLRepoModule.init());
+        return getInstance();
+    }
+
+    /**
+     * Usar init() sin repo por parametro para usar el repo por defecto
+     *
+     * @param repoModule
+     * @return
+     * @deprecated
+     */
+    @Deprecated
     public static MySQLCoreModule init(AbstractModule repoModule) {
         INSTANCE = new MySQLCoreModule();
         INSTANCE.registerModule(repoModule);

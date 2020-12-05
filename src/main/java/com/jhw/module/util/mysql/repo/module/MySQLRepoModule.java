@@ -11,7 +11,7 @@ import com.google.inject.Injector;
  */
 public class MySQLRepoModule extends DefaultAbstractModule {
 
-    private final Injector inj = Guice.createInjector(new InjectionConfigMySQLRepo());
+    private final Injector inj = Guice.createInjector(new MySQLRepoInjectionConfig());
 
     private static MySQLRepoModule INSTANCE;
 
