@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jhw.module.util.mysql;
+package com.root101.module.util.mysql;
 
-import com.jhw.module.util.mysql.services.MySQLHandler;
+import com.root101.module.util.mysql.services.MySQLHandler;
 
 /**
  *

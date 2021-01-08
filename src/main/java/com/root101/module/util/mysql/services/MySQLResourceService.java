@@ -1,4 +1,4 @@
-package com.jhw.module.util.mysql.services;
+package com.root101.module.util.mysql.services;
 
 import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.clean.core.domain.services.ResourceBundleUtils;

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jhw.module.util.mysql.services;
+package com.root101.module.util.mysql.services;
 
-import com.jhw.module.util.mysql.core.domain.Configuration;
-import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
-import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
+import com.root101.module.util.mysql.core.domain.Configuration;
+import com.root101.module.util.mysql.core.module.MySQLCoreModule;
+import com.root101.module.util.mysql.core.usecase_def.MySQLUseCase;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
