@@ -2,21 +2,20 @@ plugins {
     id 'java'
 }
 
-group = 'com.jhw.module.util'
+group = 'com.root101.module.util'
 
-version = '2.1.0.SNAPSHOT.20201229'
+version = '2.9.9.SNAPSHOT.20201229'
 
 repositories {
     jcenter()
     mavenCentral()
 }
 
-
 dependencies {
     testCompile 'junit:junit:4.13'
     
     implementation project(':utils-core')
-    implementation project(':clean-core-full')
+    implementation project(':clean-core')
     
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
     
