@@ -1,22 +1,43 @@
-package com.jhw.module.util.mysql.core.usecase_impl;
+/*
+ * Copyright 2021 Root101 (jhernandezb96@gmail.com, +53-5-426-8660).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Or read it directly from LICENCE.txt file at the root of this project.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.root101.module.util.mysql.core.usecase_impl;
 
-import com.clean.core.app.services.ExceptionHandler;
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.clean.core.app.usecase.DefaultReadWriteUseCase;
-import com.clean.core.domain.services.Resource;
-import com.jhw.module.util.mysql.core.domain.Configuration;
-import com.jhw.module.util.mysql.core.module.MySQLCoreModule;
+import com.root101.clean.core.app.services.ExceptionHandler;
+import com.root101.clean.core.app.services.NotificationHandler;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.clean.core.app.usecase.DefaultReadWriteUseCase;
+import com.root101.clean.core.domain.services.ResourceHandler;
+import com.root101.module.util.mysql.core.domain.Configuration;
+import com.root101.module.util.mysql.core.module.MySQLCoreModule;
 import javax.inject.Inject;
-import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
-import com.jhw.module.util.mysql.core.usecase_def.MySQLUseCase;
-import com.jhw.utils.others.Red;
+import com.root101.module.util.mysql.core.repo_def.MySQLRepo;
+import com.root101.module.util.mysql.core.usecase_def.MySQLUseCase;
+import com.root101.utils.others.Network;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ *
+ * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
+ * @author JesusHdezWaterloo@Github
+ */
 public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> implements MySQLUseCase {
 
     public static final int DELAY = 3 * 1000;
@@ -75,12 +96,12 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
 
             int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", exportCmd}).waitFor();
             if (resp == 0) {
-                Notification.showNotification(NOTIFICATION_SALVA_DB,
-                        Resource.getString(MSG_SAVED));
-                    firePropertyChange(PROPERTY_SAVED, false, true);
+                NotificationHandler.showNotification(NOTIFICATION_SALVA_DB,
+                        ResourceHandler.getString(MSG_SAVED));
+                firePropertyChange(PROPERTY_SAVED, false, true);
             }
         } catch (Exception e) {
-            Exception ex = new Exception(Resource.getString(MSG_NO_SAVED));
+            Exception ex = new Exception(ResourceHandler.getString(MSG_NO_SAVED));
             ex.setStackTrace(e.getStackTrace());
             ExceptionHandler.handleException(ex);
         }
@@ -99,13 +120,13 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 Thread.sleep(3 * 1000);//pa si x si acaso
                 if (resp == 0) {
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
-                            Resource.getString(MSG_STARTED));
+                    NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
+                            ResourceHandler.getString(MSG_STARTED));
                     firePropertyChange(PROPERTY_STARTED, false, true);
                 }
             }
         } catch (Exception e) {
-            Exception ex = new Exception(Resource.getString(MSG_NO_STARTED));
+            Exception ex = new Exception(ResourceHandler.getString(MSG_NO_STARTED));
             ex.setStackTrace(e.getStackTrace());
             ExceptionHandler.handleException(ex);
         }
@@ -124,15 +145,15 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
                 int resp = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", cmd}).waitFor();
                 Thread.sleep(3 * 1000);//pa si x si acaso
                 if (resp == 0) {
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
-                            Resource.getString(MSG_CLOSED));
+                    NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_SUCCESS,
+                            ResourceHandler.getString(MSG_CLOSED));
                     firePropertyChange(PROPERTY_CLOSED, false, true);
                 } else {
                     throw new Exception();
                 }
             }
         } catch (Exception e) {
-            Exception ex = new Exception(Resource.getString(MSG_NO_CLOSED));
+            Exception ex = new Exception(ResourceHandler.getString(MSG_NO_CLOSED));
             ex.setStackTrace(e.getStackTrace());
             ExceptionHandler.handleException(ex);
         }
@@ -147,7 +168,7 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     public boolean isRunning() {
         try {
             Configuration cfg = read();
-            return Red.isRunning(cfg.getIp(), cfg.getPort());
+            return Network.isRunning(cfg.getIp(), cfg.getPort());
         } catch (Exception e) {
             return false;
         }
