@@ -1,6 +1,6 @@
 package com.jhw.module.util.mysql.core.domain;
 
-import com.jhw.utils.clean.EntityDomainObjectValidated;
+import com.root101.utils.clean.EntityDomainObjectValidated;
 
 /**
  *

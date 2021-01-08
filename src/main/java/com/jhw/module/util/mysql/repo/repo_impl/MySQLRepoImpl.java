@@ -1,12 +1,12 @@
 package com.jhw.module.util.mysql.repo.repo_impl;
 
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.clean.core.domain.services.Resource;
+import com.root101.clean.core.app.services.NotificationHandler;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.clean.core.domain.services.ResourceHandler;
 import com.jhw.module.util.mysql.core.domain.Configuration;
 import javax.inject.Inject;
 import com.jhw.module.util.mysql.core.repo_def.MySQLRepo;
-import com.jhw.utils.jackson.JACKSONRepoGeneral;
+import com.root101.repo.json.JACKSONRepoGeneral;
 
 /**
  * Implementacion de la Interfaz {@code LicenceRepo} para manejar el
@@ -26,7 +26,7 @@ public class MySQLRepoImpl extends JACKSONRepoGeneral<Configuration> implements 
 
     @Override
     protected void onReadError(Exception e) {
-        Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_INFO,
-                Resource.getString("msg.mysql.error.read"));
+        NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_INFO,
+                ResourceHandler.getString("msg.mysql.error.read"));
     }
 }
