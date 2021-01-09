@@ -20,7 +20,7 @@ import com.root101.clean.core.app.services.NotificationHandler;
 import com.root101.clean.core.app.services.NotificationsGeneralType;
 import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.module.util.mysql.core.domain.Configuration;
-import javax.inject.Inject;
+
 import com.root101.module.util.mysql.core.repo_def.MySQLRepo;
 import com.root101.repo.json.JACKSONRepoGeneral;
 
@@ -34,7 +34,6 @@ public class MySQLRepoImpl extends JACKSONRepoGeneral<Configuration> implements 
     /**
      * Constructor por defecto, usado par injectar.
      */
-    @Inject
     public MySQLRepoImpl() {
         super("data_base_config.json", Configuration.class);
     }

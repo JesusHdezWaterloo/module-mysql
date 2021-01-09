@@ -20,6 +20,6 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
     
     compile group: 'com.google.inject', name: 'guice', version: '4.2.3'
-    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+    
     
 }
