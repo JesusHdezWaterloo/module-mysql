@@ -14,26 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.root101.module.util.mysql.core.usecase_def;
-
-import com.root101.clean.core.app.usecase.ReadWriteUseCase;
-import com.root101.module.util.mysql.core.domain.Configuration;
-import java.util.List;
+package com.root101.module.util.mysql.services;
 
 /**
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
- * @author JesusHdezWaterloo@Github
  */
-public interface MySQLUseCase extends ReadWriteUseCase<Configuration> {
+public class ResourceKeys {
 
-    public void start();
+    public static final String KEY_MODULE_NAME_MYSQL = "com.root101.module.util.mysql.name";
 
-    public void close();
-
-    public void save(String DB_name, String... tables);
-
-    public void update(List<String> sqlToRun);
-
-    public boolean isRunning();
 }

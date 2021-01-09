@@ -19,6 +19,10 @@ package com.root101.module.util.mysql.repo.module;
 import com.root101.clean.core.app.modules.DefaultAbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.root101.clean.core.domain.services.ResourceHandler;
+import com.root101.clean.core.exceptions.AlreadyInitModule;
+import com.root101.clean.core.exceptions.NotInitModule;
+import static com.root101.module.util.mysql.services.ResourceKeys.KEY_MODULE_NAME_MYSQL;
 
 /**
  *
@@ -36,12 +40,15 @@ public class MySQLRepoModule extends DefaultAbstractModule {
 
     public static MySQLRepoModule getInstance() {
         if (INSTANCE == null) {
-            throw new NullPointerException("El modulo de MySQL no se ha inicializado");
+            throw new NotInitModule(ResourceHandler.getString(KEY_MODULE_NAME_MYSQL));
         }
         return INSTANCE;
     }
 
     public static MySQLRepoModule init() {
+        if (INSTANCE != null) {
+            throw new AlreadyInitModule(ResourceHandler.getString(KEY_MODULE_NAME_MYSQL));
+        }
         INSTANCE = new MySQLRepoModule();
         return getInstance();
     }
