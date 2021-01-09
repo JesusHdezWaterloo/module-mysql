@@ -20,7 +20,11 @@ import com.root101.clean.core.app.modules.AbstractModule;
 import com.root101.clean.core.app.modules.DefaultAbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.root101.clean.core.domain.services.ResourceHandler;
+import com.root101.clean.core.exceptions.AlreadyInitModule;
+import com.root101.clean.core.exceptions.NotInitModule;
 import com.root101.module.util.mysql.repo.module.MySQLRepoModule;
+import static com.root101.module.util.mysql.services.ResourceKeys.*;
 
 /**
  *
@@ -35,14 +39,14 @@ public class MySQLCoreModule extends DefaultAbstractModule {
 
     public static MySQLCoreModule getInstance() {
         if (INSTANCE == null) {
-            throw new NullPointerException("El modulo de MySQL no se ha inicializado");
+            throw new NotInitModule(ResourceHandler.getString(KEY_MODULE_NAME_MYSQL));
         }
         return INSTANCE;
     }
 
     public static MySQLCoreModule init() {
         if (INSTANCE != null) {
-            return INSTANCE;
+            throw new AlreadyInitModule(ResourceHandler.getString(KEY_MODULE_NAME_MYSQL));
         }
         INSTANCE = new MySQLCoreModule();
         INSTANCE.registerModule(MySQLRepoModule.init());
@@ -56,7 +60,6 @@ public class MySQLCoreModule extends DefaultAbstractModule {
      * @return
      * @deprecated
      */
-    @Deprecated
     public static MySQLCoreModule init(AbstractModule repoModule) {
         INSTANCE = new MySQLCoreModule();
         INSTANCE.registerModule(repoModule);

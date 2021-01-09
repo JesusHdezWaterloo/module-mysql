@@ -23,7 +23,7 @@ import com.root101.clean.core.app.usecase.DefaultReadWriteUseCase;
 import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.module.util.mysql.core.domain.Configuration;
 import com.root101.module.util.mysql.core.module.MySQLCoreModule;
-import javax.inject.Inject;
+
 import com.root101.module.util.mysql.core.repo_def.MySQLRepo;
 import com.root101.module.util.mysql.core.usecase_def.MySQLUseCase;
 import com.root101.utils.others.Network;
@@ -65,7 +65,6 @@ public class MySQLUseCaseImpl extends DefaultReadWriteUseCase<Configuration> imp
     /**
      * Constructor por defecto, usado par injectar.
      */
-    @Inject
     public MySQLUseCaseImpl() {
         super.setRepo(repo);
     }
